@@ -1,4 +1,4 @@
-# 3D Balance of the CoM by Convex Model Predictive Control
+# 3D Balance of the CoM by Convex Predictive Control
 
 Source code for https://hal.archives-ouvertes.fr/hal-01590509/document
 
@@ -51,7 +51,5 @@ which has the same kinematic chain.
 
 Feel free to post your questions or comments in the issue tracker.
 
-### Why is the main Python module called "punkah"?
-
-*Presque tous s'éventaient avec leurs vastes oreilles, semblables à des
-manteaux de cuir, qu'ils remuaient comme des punkas indiennes.*
+- **Why is the main Python module called "punkah"?** — « *Presque tous s'éventaient avec leurs vastes oreilles, semblables à des
+manteaux de cuir, qu'ils remuaient comme des punkas indiennes.* »
