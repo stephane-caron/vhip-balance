@@ -1,4 +1,4 @@
-# 3D Balance of the CoM: a Convex Boundedness Approach
+# 3D Balance using both ZMP and COM height variations
 
 Source code for https://hal.archives-ouvertes.fr/hal-01590509/document
 
