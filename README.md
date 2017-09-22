@@ -1,4 +1,4 @@
-# 3D Balance of the CoM by Convex Predictive Control
+# 3D Balance of the CoM: a Convex Boundedness Approach
 
 Source code for https://hal.archives-ouvertes.fr/hal-01590509/document
 
