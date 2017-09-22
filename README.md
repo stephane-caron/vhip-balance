@@ -8,9 +8,9 @@ Developments for 3D control of the center of mass (CoM) are currently located
 in two local minima: on the one hand, methods that allow CoM height variations
 but only work in the 2D sagittal plane; on the other hand, nonconvex centroidal
 models that are delicate to handle. This paper presents an alternative that
-controls the CoM in 3D by predictive control over a convex optimization
-problem. The key to this development is the notion of boundedness condition,
-which quantifies convexly the viability of CoM trajectories. 
+controls the CoM in 3D by predictive control of a model with *convex*
+constraints. The key to this development is the notion of boundedness
+condition, which quantifies convexly the viability of CoM trajectories.
 
 Authors:
 [Stéphane Caron](https://scaron.info) and
