@@ -148,6 +148,28 @@ def record_video():
     edit()
 
 
+def usage():
+    print """
+-------------------------------------------------------------------------------
+
+USAGE
+======
+
+You can start by calling the following functions:
+
+    edit()        -- Editor mode*
+    go()          -- Execute motion from current state*
+    plot_lambda() -- Show the MPC trajectory in lambda space
+    sim.stop()    -- Stop the simulation altogether
+    usage()       -- Show this message again
+
+* BEWARE: once in editor/execution modes, IPOPT will print its (verbose)
+  output in the terminal. I don't know yet how to make it quiet.
+
+-------------------------------------------------------------------------------
+"""
+
+
 if __name__ == "__main__":
     sim = pymanoid.Simulation(dt=3e-2)
     try:  # use HRP4 if available
@@ -204,24 +226,7 @@ if __name__ == "__main__":
     sim.schedule_extra(WatcherProcess(pendulum))
     sim.step()
 
-    print """
--------------------------------------------------------------------------------
-
-MANUAL
-======
-
-You can start by calling the following functions:
-
-    edit()        -- Editor mode*
-    go()          -- Execute motion from current state*
-    plot_lambda() -- Show the MPC trajectory in lambda space
-    sim.stop()    -- Stop the simulation altogether
-
-* BEWARE: once in editor/execution modes, IPOPT will print its (verbose)
-  output in the terminal. I don't know yet how to make it quiet.
-
--------------------------------------------------------------------------------
-    """
+    usage()
 
     if IPython.get_ipython() is None:
         IPython.embed()
