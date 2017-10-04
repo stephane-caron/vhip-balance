@@ -144,6 +144,18 @@ class ConvexProblem3D(ConvexProblem):
         print ""
         self.succ = 100.
 
+    def print_instance(self):
+        print "Delta = %s;" % str(list(self.Delta))
+        print "g = %f;" % -gravity[2]
+        print "lambda_max = %f;" % self.lambda_max
+        print "lambda_min = %f;" % self.lambda_min
+        print "omega_i_max = %f;" % self.omega_i_max
+        print "omega_i_min = %f;" % self.omega_i_min
+        print "s = %s;" % str(list(self.s))
+        print "z_bar = %f;" % self.z_bar
+        print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
+        print "zd_bar = %f;" % self.zd_bar
+
 
 class Stabilizer3D(Stabilizer):
 

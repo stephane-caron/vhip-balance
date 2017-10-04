@@ -133,6 +133,16 @@ class ConvexProblem2D(ConvexProblem):
             len(self.solve_times))
         print ""
 
+    def print_instance(self):
+        print "(zd_bar + omega_i * z_bar) / g = %f;" % self.bc_integral
+        print "Delta = %s;" % str(list(self.Delta))
+        print "g = %f;" % -gravity[2]
+        print "lambda_max = %f;" % self.lambda_max
+        print "lambda_min = %f;" % self.lambda_min
+        print "omega_i = %f;" % self.omega_i
+        print "s = %s;" % str(list(self.s))
+        print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
+
 
 class Stabilizer2D(Stabilizer):
 
