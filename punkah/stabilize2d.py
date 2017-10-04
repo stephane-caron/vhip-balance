@@ -191,6 +191,9 @@ class Stabilizer2D(Stabilizer):
         g = -gravity[2]
         omega_i = -self.state.xd / self.state.x
         bc_integral = (self.state.zd + omega_i * self.state.z) / g
+        # Note that bc_integral = (zd_bar + omega_i * z_bar) / g,
+        # however there is no need to compute z_bar here since
+        # zd_bar + omega_i * z_bar = zd + omega_i * z.
         if abs(self.state.yd + omega_i * self.state.y) > 1e-10:
             raise Exception("2D balance only applies to planar motions")
         self.solver.set_bc_integral(bc_integral)
