@@ -37,6 +37,9 @@ try:
 except:  # this is to avoid warning E402 from Pylint
     pass
 
+TOTAL_LAUNCHES = 100
+TOTAL_SAMPLES = 10000
+
 
 def sample_scenario(contact_dist=0.3, contact_rpy=0.3, z_crit_var=0.1):
     from numpy import random
@@ -116,7 +119,7 @@ if __name__ == "__main__":
     sim.step()
 
     nb_launches, nb_samples = 0, 0
-    while nb_launches < 100 or nb_samples < 10000:
+    while nb_launches < TOTAL_LAUNCHES or nb_samples < TOTAL_SAMPLES:
         scenario = sample_scenario()
         for stabilizer in [stabilizer_2d, stabilizer_3d]:
             stabilizer_2d.pause()
