@@ -142,6 +142,10 @@ class ConvexProblem2D(ConvexProblem):
         print "omega_i = %f;" % self.omega_i
         print "s = %s;" % str(list(self.s))
         print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
+        if self.Phi is not None:
+            print ""
+            print "(solution)"
+            print "Phi = %s;" % str(list(self.Phi))
 
 
 class Stabilizer2D(Stabilizer):

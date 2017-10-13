@@ -155,6 +155,10 @@ class ConvexProblem3D(ConvexProblem):
         print "z_bar = %f;" % self.z_bar
         print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
         print "zd_bar = %f;" % self.zd_bar
+        if self.Phi is not None:
+            print ""
+            print "(solution)"
+            print "Phi = %s;" % str(list(self.Phi))
 
 
 class Stabilizer3D(Stabilizer):
