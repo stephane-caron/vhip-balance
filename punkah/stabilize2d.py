@@ -122,16 +122,12 @@ class ConvexProblem2D(ConvexProblem):
         succ_omega_i = succ(self.omega_i, out_omega_i)
         succ_omega_f = succ(self.omega_f, out_omega_f)
         succ_bc_integral = succ(self.bc_integral, out_bc_integral)
-        print ""
-        print "NLP perfs"
-        print "---------"
         print "Init. state: %.1f%%" % succ_omega_i
         print "Limit state: %.1f%%" % succ_omega_f
         print "Boundedness: %.1f%%" % succ_bc_integral
-        print "Solve time:  %.1f +/- %.1f ms over %d samples" % (
+        print "Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
             1000 * average(self.solve_times), 1000 * std(self.solve_times),
             len(self.solve_times))
-        print ""
 
     def print_instance(self):
         print "(zd_bar + omega_i * z_bar) / g = %f;" % self.bc_integral

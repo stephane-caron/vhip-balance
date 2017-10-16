@@ -133,15 +133,11 @@ class ConvexProblem3D(ConvexProblem):
             Delta[i] / (sqrt(Phi[i+1]) + sqrt(Phi[i])) for i in xrange(N))
         out_bc_cvx_obj = out_bc_integral - (self.z_bar / g) * sqrt(Phi[N])
         out_omega_f = sqrt(Phi[1] / Delta[0])
-        print ""
-        print "NLP perfs"
-        print "---------"
         print "Limit state: %.1f%%" % succ(self.omega_f, out_omega_f)
         print "Boundedness: %.1f%%" % succ(self.zd_bar / g, out_bc_cvx_obj)
-        print "Solve time:  %.1f +/- %.1f ms over %d samples" % (
+        print "Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
             1000 * average(self.solve_times), 1000 * std(self.solve_times),
             len(self.solve_times))
-        print ""
         self.succ = 100.
 
     def print_instance(self):
