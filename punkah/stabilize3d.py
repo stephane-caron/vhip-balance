@@ -208,7 +208,7 @@ class Stabilizer3D(Stabilizer):
         for i in xrange(A.shape[0]):
             if u[i] > 1e-3:
                 omega_i_min = max(omega_i_min, v[i] / u[i])
-            elif u[i] < 1e-3:
+            elif u[i] < -1e-3:
                 omega_i_max = min(omega_i_max, v[i] / u[i])
             elif v[i] > 0:  # u[i] is almost 0., so v[i] must be negative
                 raise RuntimeError("CoP polygon is singular, on the bad side")
