@@ -2,20 +2,6 @@
 
 Source code for https://hal.archives-ouvertes.fr/hal-01590509/document
 
-## Abstract
-
-Developments for 3D control of the center of mass (CoM) are currently located
-in two local minima: on the one hand, methods that allow CoM height variations
-but only work in the 2D sagittal plane; on the other hand, nonconvex centroidal
-models that are delicate to handle. This paper presents an alternative that
-controls the CoM in 3D by predictive control of a model with *convex*
-constraints. The key to this development is the notion of boundedness
-condition, which quantifies convexly the viability of CoM trajectories.
-
-Authors:
-[Stéphane Caron](https://scaron.info) and
-[Bastien Mallein](http://www.math.univ-paris13.fr/~mallein/)
-
 ## Installation
 
 The following instructions were verified on various machines running Ubuntu
@@ -46,10 +32,3 @@ Due to copyright, we cannot release the COLLADA model ``HRP4R.dae`` used to
 produce the accompanying video and paper illustrations. It is replaced by
 [JVRC-1](https://github.com/stephane-caron/openrave_models/tree/master/JVRC-1),
 which has the same kinematic chain.
-
-## Questions?
-
-Feel free to post your questions or comments in the issue tracker.
-
-- **Why is the main Python module called "punkah"?** — « *Presque tous s'éventaient avec leurs vastes oreilles, semblables à des
-manteaux de cuir, qu'ils remuaient comme des punkas indiennes.* »
