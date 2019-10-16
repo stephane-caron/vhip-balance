@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 from bisect import bisect_right
 from numpy import array, linspace, log, sqrt
@@ -40,9 +39,9 @@ class ConvexProblem(object):
     """
 
     def __init__(self, lambda_min, lambda_max, nb_steps):
-        s_list = [i * 1. / nb_steps for i in xrange(nb_steps)] + [1.]
+        s_list = [i * 1. / nb_steps for i in range(nb_steps)] + [1.]
         s_sq = [s ** 2 for s in s_list]
-        Delta = [s_sq[i + 1] - s_sq[i] for i in xrange(nb_steps)]
+        Delta = [s_sq[i + 1] - s_sq[i] for i in range(nb_steps)]
         self.Delta = Delta
         self.N = nb_steps
         self.Phi = None
@@ -72,7 +71,7 @@ class ConvexProblem(object):
     def compute_lambda(self):
         lambda_ = [
             (self.Phi[i + 1] - self.Phi[i]) / self.Delta[i]
-            for i in xrange(self.N)]
+            for i in range(self.N)]
         lambda_ = array(lambda_ + [lambda_[-1]])
         self.lambda_ = lambda_
 
@@ -92,7 +91,8 @@ class ConvexProblem(object):
 
         Note
         ----
-        This function is not called by the stabilizer, but useful for debugging.
+        This function is not called by the stabilizer, but useful for
+        debugging.
         """
         i = bisect_right(self.s, s) - 1 if s > 0 else 0
         assert self.s[i] <= s and (i == self.N or s < self.s[i + 1])
@@ -114,7 +114,8 @@ class ConvexProblem(object):
 
         Note
         ----
-        This function is not called by the stabilizer, but useful for debugging.
+        This function is not called by the stabilizer, but useful for
+        debugging.
         """
         if s < 1e-3:
             return sqrt(self.lambda_[0])
@@ -136,7 +137,7 @@ class ConvexProblem(object):
         """
         switch_times = [0.]
         switch_time = 0.
-        for i in xrange(self.N - 1, 0, -1):
+        for i in range(self.N - 1, 0, -1):
             num = sqrt(self.Phi[i + 1]) + sqrt(self.lambda_[i]) * self.s[i + 1]
             denom = sqrt(self.Phi[i]) + sqrt(self.lambda_[i]) * self.s[i]
             duration = log(num / denom) / sqrt(self.lambda_[i])
@@ -150,7 +151,7 @@ class ConvexProblem(object):
 
     def find_switch_time_before(self, t):
         """
-        Find a switch time :math:`t_i` such that :math:`t_i \leq t < t_{i+1}`.
+        Find a switch time :math:`t_i` such that :math:`t_i \\leq t < t_{i+1}`.
 
         Parameters
         ----------
@@ -236,7 +237,7 @@ class ConvexProblem(object):
         from pylab import grid, legend, plot, step, xlabel, ylim
 
         def subsample(s):
-            s2 = [(s[i] + s[i + 1]) / 2. for i in xrange(len(s) - 1)]
+            s2 = [(s[i] + s[i + 1]) / 2. for i in range(len(s) - 1)]
             s2.extend(s)
             s2.sort()
             return s2

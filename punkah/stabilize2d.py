@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 from casadi import sqrt as casadi_sqrt
 from numpy import array, sqrt
@@ -55,7 +54,7 @@ class ConvexProblem2D(ConvexProblem):
         lambda_cost = 0.
         lambda_guess = self.omega_i ** 2
         lambda_prev = self.omega_f ** 2
-        for i in xrange(self.N):
+        for i in range(self.N):
             Phi_next = nlp.new_variable(
                 'Phi_%d' % (i + 1),  # from Phi_1 to Phi_N
                 dim=1,
@@ -117,32 +116,32 @@ class ConvexProblem2D(ConvexProblem):
             return
         out_bc_integral = sum(self.Delta[i] / (
             sqrt(self.Phi[i + 1]) + sqrt(self.Phi[i]))
-            for i in xrange(self.N))
+            for i in range(self.N))
         out_omega_i = sqrt(self.Phi[self.N])
         out_omega_f = sqrt(self.Phi[1] / self.Delta[0])
         succ_omega_i = succ(self.omega_i, out_omega_i)
         succ_omega_f = succ(self.omega_f, out_omega_f)
         succ_bc_integral = succ(self.bc_integral, out_bc_integral)
-        print "Init. state: %.1f%%" % succ_omega_i
-        print "Limit state: %.1f%%" % succ_omega_f
-        print "Boundedness: %.1f%%" % succ_bc_integral
-        print "Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
+        print("Init. state: %.1f%%" % succ_omega_i)
+        print("Limit state: %.1f%%" % succ_omega_f)
+        print("Boundedness: %.1f%%" % succ_bc_integral)
+        print("Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
             1000 * average(self.solve_times), 1000 * std(self.solve_times),
-            len(self.solve_times))
+            len(self.solve_times)))
 
     def print_instance(self):
-        print "(zd_bar + omega_i * z_bar) / g = %f;" % self.bc_integral
-        print "Delta = %s;" % str(list(self.Delta))
-        print "g = %f;" % -gravity[2]
-        print "lambda_max = %f;" % self.lambda_max
-        print "lambda_min = %f;" % self.lambda_min
-        print "omega_i = %f;" % self.omega_i
-        print "s = %s;" % str(list(self.s))
-        print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
+        print("(zd_bar + omega_i * z_bar) / g = %f;" % self.bc_integral)
+        print("Delta = %s;" % str(list(self.Delta)))
+        print("g = %f;" % -gravity[2])
+        print("lambda_max = %f;" % self.lambda_max)
+        print("lambda_min = %f;" % self.lambda_min)
+        print("omega_i = %f;" % self.omega_i)
+        print("s = %s;" % str(list(self.s)))
+        print("z_f = %f;" % (-gravity[2] / self.omega_f ** 2))
         if self.Phi is not None:
-            print ""
-            print "(solution)"
-            print "Phi = %s;" % str(list(self.Phi))
+            print("")
+            print("(solution)")
+            print("Phi = %s;" % str(list(self.Phi)))
 
 
 class Stabilizer2D(Stabilizer):
@@ -164,8 +163,8 @@ class Stabilizer2D(Stabilizer):
         References
         ----------
         .. [Koolen2016] "Balance control using center of mass height variation:
-           Limitations imposed by unilateral contact", T. Koolen, M. Posa and R.
-           Tedrake, IEEE-RAS International Conference on Humanoid Robots,
+           Limitations imposed by unilateral contact", T. Koolen, M. Posa and
+           R. Tedrake, IEEE-RAS International Conference on Humanoid Robots,
            November 2016.
         """
         z, zd = state.z, state.zd
@@ -216,7 +215,7 @@ class Stabilizer2D(Stabilizer):
         virt_pendulum.hide()
         points = []
         max_time = solver.switch_times[-1] * 2
-        for i in xrange(solver.N):
+        for i in range(solver.N):
             t_i = solver.switch_times[i]
             t_next = solver.switch_times[i + 1] if i < N - 1 else max_time
             virt_pendulum.set_lambda(solver.lambda_[N - i - 1])

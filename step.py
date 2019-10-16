@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 import IPython
 import os
@@ -30,7 +29,7 @@ try:  # use local pymanoid submodule
     script_path = os.path.realpath(__file__)
     sys.path = [os.path.dirname(script_path) + '/pymanoid'] + sys.path
     import pymanoid
-except:  # this is to avoid warning E402 from Pylint :p
+except Exception:  # this is to avoid warning E402 from Pylint :p
     pass
 
 from pymanoid import Point, Stance
@@ -150,7 +149,7 @@ def record_video():
 
 
 def usage():
-    print """
+    print("""
 -------------------------------------------------------------------------------
 
 USAGE
@@ -168,14 +167,14 @@ You can start by calling the following functions:
   output in the terminal. I don't know yet how to make it quiet.
 
 -------------------------------------------------------------------------------
-"""
+""")
 
 
 if __name__ == "__main__":
     sim = pymanoid.Simulation(dt=3e-2)
     try:  # use HRP4 if available
         robot = pymanoid.robots.HRP4()
-    except:  # otherwise use default model
+    except Exception:  # otherwise use default model
         robot = pymanoid.robots.JVRC1()
     robot.set_transparency(0.5)
     sim.set_viewer()

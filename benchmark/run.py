@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import IPython
@@ -35,7 +34,7 @@ try:
     script_path = os.path.realpath(__file__)
     sys.path = [os.path.dirname(script_path) + '/..'] + sys.path
     from punkah import InvertedPendulum, Stabilizer2D, Stabilizer3D
-except:  # this is to avoid warning E402 from Pylint
+except Exception:  # this is to avoid warning E402 from Pylint
     pass
 
 TOTAL_LAUNCHES = 100
@@ -76,7 +75,7 @@ if __name__ == "__main__":
     sim = pymanoid.Simulation(dt=3e-2)
     try:  # use HRP4 if available
         robot = pymanoid.robots.HRP4()
-    except:  # otherwise use default model
+    except Exception:  # otherwise use default model
         robot = pymanoid.robots.JVRC1()
     robot.set_transparency(0.5)
     robot.suntan()
@@ -135,25 +134,25 @@ if __name__ == "__main__":
                     error("Unfeasible state encountered during execution")
                     break
                 sim.step()
-                print "\n------------------------------------------\n"
-                print "Launch %d for %s" % (
-                    nb_launches + 1, type(stabilizer).__name__)
+                print("\n------------------------------------------\n")
+                print("Launch %d for %s" % (
+                    nb_launches + 1, type(stabilizer).__name__))
                 stabilizer.solver.print_debug_info()
         nb_2d_samples = len(stabilizer_2d.solver.solve_times)
         nb_3d_samples = len(stabilizer_3d.solver.solve_times)
         nb_samples = min(nb_2d_samples, nb_3d_samples)
         nb_launches += 1
 
-    print "Results"
-    print "-------"
+    print("Results")
+    print("-------")
     for stabilizer in [stabilizer_2d, stabilizer_3d]:
         msg = "Solve time:  %.1f +/- %.1f ms over %d samples, %d launches" % (
             1000 * average(stabilizer.solver.solve_times),
             1000 * std(stabilizer.solver.solve_times),
             len(stabilizer.solver.solve_times), nb_launches)
         name = type(stabilizer).__name__
-        print "%s: %s" % (name, msg)
-    print ""
+        print("%s: %s" % (name, msg))
+    print("")
 
     if IPython.get_ipython() is None:
         IPython.embed()

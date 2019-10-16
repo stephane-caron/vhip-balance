@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 from casadi import sqrt as casadi_sqrt
 from numpy import arange, arctan, array, cos, dot, sin, sqrt, tan, vstack
@@ -57,7 +56,7 @@ class ConvexProblem3D(ConvexProblem):
         lambda_f = self.omega_f ** 2
         lambda_guess = lambda_f
         lambda_prev = lambda_f
-        for i in xrange(self.N):
+        for i in range(self.N):
             Phi_lb = self.s_sq[i + 1] * self.lambda_min
             Phi_ub = self.s_sq[i + 1] * self.lambda_max
             if i == self.N - 1:
@@ -131,31 +130,31 @@ class ConvexProblem3D(ConvexProblem):
             return
         g, Delta, Phi, N = -gravity[2], self.Delta, self.Phi, self.N
         out_bc_integral = sum(
-            Delta[i] / (sqrt(Phi[i+1]) + sqrt(Phi[i])) for i in xrange(N))
+            Delta[i] / (sqrt(Phi[i+1]) + sqrt(Phi[i])) for i in range(N))
         out_bc_cvx_obj = out_bc_integral - (self.z_bar / g) * sqrt(Phi[N])
         out_omega_f = sqrt(Phi[1] / Delta[0])
-        print "Limit state: %.1f%%" % succ(self.omega_f, out_omega_f)
-        print "Boundedness: %.1f%%" % succ(self.zd_bar / g, out_bc_cvx_obj)
-        print "Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
+        print("Limit state: %.1f%%" % succ(self.omega_f, out_omega_f))
+        print("Boundedness: %.1f%%" % succ(self.zd_bar / g, out_bc_cvx_obj))
+        print("Avg. solve time:  %.1f +/- %.1f ms over %d samples" % (
             1000 * average(self.solve_times), 1000 * std(self.solve_times),
-            len(self.solve_times))
+            len(self.solve_times)))
         self.succ = 100.
 
     def print_instance(self):
-        print "Delta = %s;" % str(list(self.Delta))
-        print "g = %f;" % -gravity[2]
-        print "lambda_max = %f;" % self.lambda_max
-        print "lambda_min = %f;" % self.lambda_min
-        print "omega_i_max = %f;" % self.omega_i_max
-        print "omega_i_min = %f;" % self.omega_i_min
-        print "s = %s;" % str(list(self.s))
-        print "z_bar = %f;" % self.z_bar
-        print "z_f = %f;" % (-gravity[2] / self.omega_f ** 2)
-        print "zd_bar = %f;" % self.zd_bar
+        print("Delta = %s;" % str(list(self.Delta)))
+        print("g = %f;" % -gravity[2])
+        print("lambda_max = %f;" % self.lambda_max)
+        print("lambda_min = %f;" % self.lambda_min)
+        print("omega_i_max = %f;" % self.omega_i_max)
+        print("omega_i_min = %f;" % self.omega_i_min)
+        print("s = %s;" % str(list(self.s)))
+        print("z_bar = %f;" % self.z_bar)
+        print("z_f = %f;" % (-gravity[2] / self.omega_f ** 2))
+        print("zd_bar = %f;" % self.zd_bar)
         if self.Phi is not None:
-            print ""
-            print "(solution)"
-            print "Phi = %s;" % str(list(self.Phi))
+            print("")
+            print("(solution)")
+            print("Phi = %s;" % str(list(self.Phi)))
 
 
 class Stabilizer3D(Stabilizer):
@@ -206,7 +205,7 @@ class Stabilizer3D(Stabilizer):
         v = dot(A, self.state.pd[:2])
         # Property: u * omega_i >= v
         omega_i_min, omega_i_max = -1000., +1000.
-        for i in xrange(A.shape[0]):
+        for i in range(A.shape[0]):
             if u[i] > 1e-3:
                 omega_i_min = max(omega_i_min, v[i] / u[i])
             elif u[i] < -1e-3:
@@ -219,7 +218,8 @@ class Stabilizer3D(Stabilizer):
                 self.pendulum.contact.p + _v[0] * self.e_x + _v[1] * self.e_y
                 for _v in vertices]
             color = 'r' if omega_i_min > omega_i_max else 'g'
-            self.__polygon = draw_polygon(points, [0., 0., 1.], '%s.-#' % color)
+            self.__polygon = draw_polygon(
+                points, [0., 0., 1.], '%s.-#' % color)
         if omega_i_min > omega_i_max:
             raise RuntimeError("No feasible CoP for this feedback gain")
         if omega_i_max > 500:
@@ -270,7 +270,7 @@ class Stabilizer3D(Stabilizer):
         alpha_i = r_i[0] / cos(self.phi)
         beta_i = r_i[1] / cos(self.theta)
         points = []
-        for i in xrange(solver.N):
+        for i in range(solver.N):
             t_i = solver.switch_times[i]
             t_next = solver.switch_times[i + 1] if i < N - 1 else max_time
             virt_pendulum.set_lambda(solver.lambda_[N - i - 1])

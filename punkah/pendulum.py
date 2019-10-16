@@ -7,17 +7,16 @@
 # <https://github.com/stephane-caron/3d-balance>.
 #
 # 3d-balance is free software: you can redistribute it and/or modify it under
-# the terms of the GNU Lesser General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
 #
 # 3d-balance is distributed in the hope that it will be useful, but WITHOUT ANY
 # WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-# details.
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License along
-# with 3d-balance. If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License along with
+# 3d-balance. If not, see <http://www.gnu.org/licenses/>.
 
 import pymanoid
 
@@ -67,7 +66,8 @@ class InvertedPendulum(pymanoid.Process):
 
     def copy(self):
         return InvertedPendulum(
-            self.com.mass, self.com.p, self.com.pd, self.contact, self.z_target)
+            self.com.mass, self.com.p, self.com.pd, self.contact,
+            self.z_target)
 
     def hide(self):
         self.com.hide()
@@ -121,9 +121,6 @@ class InvertedPendulum(pymanoid.Process):
         self.handles['parabola'] = draw_trajectory(parabola, pointsize=0)
 
     def integrate(self, duration):
-        if __debug__ and abs(dot(self.contact.n, self.cop)) > 1e-10:
-            self.cop = self.cop - dot(self.cop, self.contact.n) * self.contact.n
-            warn("CoP was offset from contact surface")
         omega = sqrt(self.lambda_)
         p0 = self.com.p
         pd0 = self.com.pd
